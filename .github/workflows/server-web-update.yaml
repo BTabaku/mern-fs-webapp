@@ -1,0 +1,40 @@
+name: CICD Server Web Update
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deployment-web:
+    runs-on: ubuntu-latest
+    environment: DEVELOPMENT
+    steps:
+      - name: Checking out the repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate and deploy web files on host
+        run: |
+          sudo apt-get install sshpass
+          # copy contents to deploy
+
+          # sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no -r www/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_0 }}:/home/ubuntu/DEV/www/
+          # # run commands
+
+      # - name: Discovering temp GH paths
+      #   run: |
+      #     pwd
+      #     ls -a
+
+      # - name: Setting up docker containers
+      #   run: |
+      #     # adding docker-compose.yml updated
+      #     # sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no -r dockerbuild/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_0 }}:/home/ubuntu/DEV/
+
+      #     sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_1 }} "\
+      #     cd /home/ubuntu/DEV/dockerbuild && sudo chmod -R 777 * && pwd"
+
+      #     # sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_1 }} "\
+      #     # cd /home/ubuntu/DEV/dockerbuild && sudo chmod -R 777 * && pwd"
+      # - name: Installing required packages on host
+      #   run: |
+      #     sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_1 }} "\
+      #     npm install --global gulp-cli && sudo chmod -R 777 * && npm install && npm run dev"
